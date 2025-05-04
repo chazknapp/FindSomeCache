@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FindSomeCache</title>
+
+  <!-- This line loads the Google Maps JavaScript API and includes the Drawing Library,
+       which I’ll use for drawing invisible search areas.
+       Attached below is my API key that I obtained through Google. -->
+  
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_SBiuOp6quVDM-hCyakes_MCtHysS51A&libraries=drawing" defer></script>
+
+  <!-- This is my main JavaScript file that powers all the logic:
+       It handles map setup, search inputs, API communication, marker drawing, and more. -->
+  <script src="js/main.js" defer></script>
+
+  <!-- This is where I bring in the custom CSS to style the page and lay out elements. -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <!-- This is the main title of the app, shown at the top of the page. -->
+  <h1>Chaz Knapp - 5/8/2025 - Final Project - FindSomeCache - CSCV 337</h1>
+
+
+  
+  <!-- This panel contains the inputs users use to define their search:
+       location (lat/lng), radius, cache type, and difficulty level. -->
+  <div id="filter-panel">
+
+    <!-- Users can type in a specific latitude to center their search. -->
+    <label for="lat">Latitude:</label>
+    <input type="text" id="lat" placeholder="e.g. 32.253" />
+    
+    <!-- Same as above, but for longitude. Together, these form the search center. -->
+    <label for="lng">Longitude:</label>
+    <input type="text" id="lng" placeholder="e.g. -110.912" />
+    
+    <!-- Users specify how far out (in miles) they want to search.
+         If they don’t fill it in, my code defaults to 10 miles. -->
+    <label for="distance">Distance (miles):</label>
+    <input type="text" id="distance" placeholder="Default 10" />
+
+    <!-- This dropdown lets users choose the type of geocache to filter by.
+         These values match up with `cache_type_id` values in the database. -->
+    <label for="cacheType">Cache Type:</label>
+    <select id="cacheType">
+      <option value="">All</option>
+      <option value="1">Traditional</option>
+      <option value="2">Puzzle</option>
+      <option value="3">Multi</option>
+    </select>
+
+    <!-- This dropdown lets users choose a difficulty level between 1 and 10.
+         These correspond to the `difficulty_rating` values in the database.
+         If no value is chosen, it will return all difficulties. -->
+    <label for="difficulty">Difficulty:</label>
+    <select id="difficulty">
+      <option value="">All</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+
+    <!-- This button runs the search when clicked.
+         It triggers `filterGeocaches()` in the JavaScript file. -->
+    <button id="searchBtn">Search</button>
+  </div>
+
+  <!-- This container holds both the map and the results panel side-by-side.
+       The layout is managed using Flexbox in CSS. -->
+  <div id="main-container">
+
+    <!-- The map appears on the left side of the layout.
+         This is where geocache markers will be plotted. -->
+  <div id="map-wrapper">
+    <div id="map"></div>
+    <div class="bottom-accent-bar"></div>
+  </div>
+
+
+    <!-- The right-hand panel shows the table of geocache results
+         and thumbnail images pulled from Flickr based on location. -->
+    <div id="side-panel">
+
+      <!-- This section is the table that shows cache search results.
+           The table headers are hardcoded, but the rows are added dynamically using JavaScript. -->
+      <div id="results" style="position: relative;">
+        <table id="results-table">
+        <div class="bottom-accent-bar"></div>
+      </div>
+          <thead>
+            <tr>
+              <th>Cache Type</th>
+              <th>Difficulty</th>
+              <th>Coordinates</th>
+            </tr>
+          </thead>
+          <!-- JavaScript will insert <tr> rows here when results are returned from the backend. -->
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- This container will display the thumbnails from Flickr
+           that were taken near the selected geocache location. -->
+      <div id="photo-gallery"></div>
+
+    </div>
+  </div>
+</body>
+</html>
