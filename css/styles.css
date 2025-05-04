@@ -1,0 +1,234 @@
+/* I start with clean typography and a soft background tone that gives the page a modern, open feel.
+   The deep navy text contrasts nicely and keeps it readable across screen types. */
+   body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #271515, #e0e5b6);
+    text-align: center;
+    color: #c8c69d;
+    margin: 30px;
+  }
+
+  h1 {
+    margin-bottom: 10px; /* I put this here to reduce the space under the title */
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 1px;
+  }
+  
+
+  /* This locks the entire site to a consistent width no matter the screen */
+#site-container {
+  width: 1440px;           /* Looked it up and this should fix width for standard laptop/desktop */
+  margin: 0 auto;             
+  padding: 0px;                
+  box-sizing: border-box;
+  background-color: transparent; 
+}
+
+/* Prevent horizontal scroll and body shifting */
+body, html {
+  overflow-x: hidden;
+}
+
+  
+  /* This is the search panel where users enter inputs. I style it like a soft card with a glow.
+     A subtle glassy effect gives it a floating, interactive look. */
+     #filter-panel {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(6px);
+      padding: 14px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+    
+      display: flex;
+      flex-wrap: nowrap; /*This forces everything to stay on one row */
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      overflow-x: auto;  /* This allows a fallback if screen is too small */
+    }
+    
+    /* Label text can be slightly smaller and more compact */
+    #filter-panel label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #2c3e50;
+      margin-right: 4px;
+    }
+    
+    #filter-panel {
+      margin-top: 0;         /* Remove extra space above */
+      margin-bottom: 25px;   /* You can also reduce this if needed */
+    }
+    
+    /* Input and dropdown fields */
+    #filter-panel input,
+    #filter-panel select {
+      padding: 6px 10px;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      max-width: 140px;
+      flex-shrink: 0;
+    }
+    
+    /* Distance field can be slightly narrower */
+    #filter-panel input#distance {
+      max-width: 100px;
+    }
+    
+    /* Search button: smaller, rounded, and styled */
+    #filter-panel button {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #00485c, #00850d);
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.2s ease-in-out;
+    }
+    
+    #filter-panel button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 2px 8px rgba(0, 201, 255, 0.3);
+    }
+    
+  
+  #main-container {
+    display: flex;
+    gap: 30px;
+    height: 720px; /* This keeps both map and side panel same height */
+  }
+  
+  #map-wrapper {
+    flex: 1;
+    position: relative;
+    height: 100%;
+    border-radius: 12px;
+    background: white;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  #map {
+    width: 100%;
+    height: 100%;
+  }
+  
+  #side-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+  }
+  
+  #results {
+    flex-grow: 1;
+    overflow-y: auto;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    position: relative;
+  }
+  
+
+
+/* Shared red oval accent bar used under both map and results */
+.bottom-accent-bar {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 12px;
+  background: #682a2a;
+  border-radius: 20px;
+  opacity: 0.7;
+  z-index: 1;
+}
+
+
+  
+/* This outer container wraps the results table and gives it a fixed height.
+   If there are too many rows, it will scroll inside this space without pushing the rest of the layout. */
+   #results {
+    height: 600px;
+    overflow-y: auto;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 0;
+  }
+  
+  /* I give the table a clean, modern appearance but remove height control here.
+     It will simply grow as needed inside the scrollable container. */
+  #results-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 100%;
+  }
+  
+  /* The header row stands out with a soft gray background.
+     Slight spacing and bold text help guide the eye. */
+  #results-table th {
+    background-color: #f1f2f6;
+    padding: 12px;
+    font-size: 1rem;
+    color: #2d3436;
+    letter-spacing: 0.5px;
+    text-align: left;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  
+  /* Each cell gets soft padding, subtle coloring, and a top border for structure.
+     This keeps things clean and readable without feeling cluttered. */
+  #results-table td {
+    padding: 10px 12px;
+    border-top: 1px solid #ecf0f1;
+    font-size: 0.95rem;
+    color: #34495e;
+  }
+  
+  /* I add a hover effect to each row to make the table feel interactive.
+     This helps the user know they can click on a row to trigger a map action. */
+  #results-table tr:hover {
+    background-color: #f0fbff;
+    cursor: pointer;
+  }
+  
+  
+  /* This is where the Flickr thumbnails appear. I give it a grid layout with soft styling.
+     Padding and spacing are increased to make the thumbnails feel breathable and inviting. */
+  #photo-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    background: #5f3232;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  
+  /* Each thumbnail gets a consistent size and a soft border-radius.
+     I use a slight zoom effect on hover to make them more engaging. */
+  #photo-gallery img {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+  }
+  
+  #photo-gallery img:hover {
+    transform: scale(1.12);
+  }
+  
